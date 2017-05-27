@@ -1,5 +1,6 @@
 #!python
 #log/views.py
+from django.http import JsonResponse
 from django.shortcuts import render_to_response
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -36,15 +37,19 @@ def donors(request):
 
     return render(request, 'donors.html', {
         'form': PostForm(), 
-       # 'query_results': query_results,
         'donors_count': donors_count,
         'query_results': query_results,
-       # 'filter': donor_filter,
-
         })
 
+def get_data(request):
+    data = {
+    'sales': 100,
+    'customers': 30
+    }
 
 
+
+    return JsonResponse(data) # http response
 
 @login_required(login_url="login/")
 def patients(request):
@@ -54,11 +59,11 @@ def patients(request):
             form.save()
 
     patients_results = Patient.objects.all()
-    return render(request, 'patients.html', {'form': PatientForm(), 'patients_results': patients_results})
-
-# def post_new(request):
-#     form = PostForm()
-#     return render(request, 'log/p.html', {'form': form})
-
+    patients_count = Patient.objects.count()
+    return render(request, 'patients.html', {
+        'form': PatientForm(), 
+        'patients_results': patients_results,
+        'patients_count': patients_count,
+        })
 
 

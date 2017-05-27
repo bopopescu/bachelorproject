@@ -2,6 +2,7 @@
 # log/urls.py
 from django.conf.urls import url
 from . import views
+# from .views import get_data
 
 # We are adding a URL called /home
 urlpatterns = [
@@ -10,5 +11,7 @@ urlpatterns = [
     url(r'^donors/$', views.donors,  name='donors'),
     #patients
     url(r'^patients/$', views.patients, name='patients')
+
+    
 
 ]

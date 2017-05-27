@@ -1,32 +1,77 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="container">
-<div class="row">
+<div class="container-fluid">
+    
+    <div class="col-md-4 col-xs-12">
+        <div class="jumbotron">
+            <form class="post-form" method="POST" action="/patients/">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="save btn btn-default form-control saveBtn" id="donorBtn">Save</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-8 col-xs-12">
+        <h3><strong>PATIENTS</strong> ({{ patients_count }})</h3>
+        <table class="table search-table table-bordered search-table table-responsive" id="donorTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Last name</th>
+                <th>Blood</th>
+                <th>Joined</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for p in patients_results %}
+                <tr> 
+                    <td>{{ p.id }}</td>
+                    <td>{{ p.first_name }}</td>
+                    <td>{{ p.last_name }}</td>
+                    <td>{{ p.blood_type }}</td>
+                    <td>{{ p.created_date|date:"d M Y" }}</td>
+                </tr>
+                {% endfor %} 
+            </tbody>
+        </table>
+    </div>
+    <div class="row"> 
+    <div class="col-md-2 col-md-offset-8">
+        <button type="button" class="btn seeMore" id="seeMoreRecords">see more</button>
+        <button type="button" class="btn seeMore" id="seeLessRecords">see less</button>
+    </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            
+        </div>
+    </div>  
+        
 
-<div class="jumbotron">
-  <h1>PATIENTS</h1>
-  <form method="POST" class="post-form" action=" /patients/ ">
- {% csrf_token %}
+    
+</div>
+
+<!-- add new model -->
+<div id="myModal" class="modal fade" role="dialog">
+<form class="post-form" method="POST" action="/donors/">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add new donor</h4>
+      </div>
+      <div class="modal-body">
+        {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
-    </form>
-</div>
-</div>
-
-<table>
-    <tr>
-        <th>name</th>
-        <th>last name</th>
-        <th>blood </th>
-    </tr>
-    {% for item in patients_results %}
-    <tr> 
-        <td>{{ item.first_name }}</td>
-        <td>{{ item.last_name }}</td>
-        <td>{{ item.blood_type }}</td>
-    </tr>
-    {% endfor %}
-</table>
+        <button type="submit" class="save btn btn-default" id="donorBtn">Save</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</form>
 </div>
 {% endblock %}

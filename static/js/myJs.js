@@ -1,4 +1,4 @@
-// add new ajax
+// add donor new ajax
 $(document).ready(function() {
     $('#donorBtn').submit(function() { // catch the form's submit event
         $.ajax({ // create an AJAX call...
@@ -69,3 +69,5 @@ $('.linkBtns').click(function(){
         $(this).addClass('active')
     }
 });
+
+

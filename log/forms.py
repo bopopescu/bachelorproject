@@ -44,6 +44,21 @@ like = forms.ChoiceField(choices=bloodChoices, widget=forms.RadioSelect())
 
 
 class PatientForm(forms.ModelForm):
+  first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control inputs', 'placeholder': 'first name'}), label='')
+  last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control inputs', 'placeholder': 'last name'}), label='')
+  blood_choices = (
+            ('select','blood type'),
+            ('AB+','AB+'),
+            ('AB-','AB-'),
+            ('A+','A+'),
+            ('A-','A-'),
+            ('B+','B+'),
+            ('B-','B-'),
+            ('0+','0+'),
+            ('0-','0-'),
+            )
+  # bloodType = forms.CharField(widget=forms.TextInput(max_length=200), label='', choices = blood_choices)
+  blood_type = forms.ChoiceField(choices=blood_choices, widget=forms.Select(attrs={'class': 'form-control selectBlood'}),label='')
   class Meta:
     model = models.Patient
     fields = ['first_name', 'last_name', 'blood_type',]
