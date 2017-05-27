@@ -60,3 +60,12 @@ function checkButton() {
         btnLess.hide();
     }
 }
+
+// click btn in nav
+$('.linkBtns').click(function(){
+    if($(this).hasClass('active')){
+        $(this).removeClass('active')
+    } else {
+        $(this).addClass('active')
+    }
+});

@@ -13,9 +13,10 @@ class LoginForm(AuthenticationForm):
 
 #add new donor
 class PostForm(forms.ModelForm):
-  firstName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}), label='')
-  lastName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}), label='')
+  firstName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control inputs', 'placeholder': 'first name'}), label='')
+  lastName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control inputs', 'placeholder': 'last name'}), label='')
   blood_choices = (
+            ('select','blood type'),
             ('AB+','AB+'),
             ('AB-','AB-'),
             ('A+','A+'),

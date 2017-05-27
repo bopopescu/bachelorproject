@@ -9,7 +9,7 @@
 }
 .searchInput{
 	letter-spacing: 2px;
-	width:130px;
+	width:175px;
 /*	font-style: italic;
 */}
 .seeMore{
@@ -38,3 +38,14 @@
 .selectBlood{
 	text-align: center;
 }
+a:hover{
+	color:#a60c0c !important;
+}
+.inputs{
+	text-align: center;
+	letter-spacing: 1px;
+	color: black;
+}
+.linkBtns.active {
+background: #ea0000;
+color: #fff;
