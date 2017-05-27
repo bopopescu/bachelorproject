@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- {% load table_tags %} -->
+
+{% block content %}
+<div class="container">
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">1</div>
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+		<a data-toggle="modal" href="#myModal">
+		<img src="{% static 'images/plus.png' %}" class="img-responsive plusImg"/></a>
+	</div>
+	<div class="col-lg-12">
+	<h3>all donors {{ donors_count }}</h3>  
+
+	<form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Search</button>
+  </form>
+
+    <input type="submit" name="">
+		<table class="table table-bordered search-table" id="donorTable">
+		<thead>
+	      <tr>
+	        <th>Name</th>
+	        <th>Last name</th>
+	        <th>Blood</th>
+	        <th>Joined</th>
+	        <th>Last attendance</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+		    {% for item in query_results %}
+		    <tr> 
+		        <td>{{ item.firstName }}</td>
+		        <td>{{ item.lastName }}</td>
+		        <td>{{ item.bloodType }}</td>
+		        <td>{{ item.createdDate|date:"d M Y" }}</td>
+		    </tr>
+		    {% endfor %}
+		</tbody>
+		</table>
+		<!-- {% render_table people %} -->
+
+		<ul>
+  {% for searchedD in filter.qs %}
+    <li>{{ searchedD.lastName }}</li>
+  {% endfor %}
+  </ul>
+	</div>
+</div>
+
+<!-- add new model -->
+<div id="myModal" class="modal fade" role="dialog">
+<form class="post-form" method="POST" action="/donors/">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add new donor</h4>
+      </div>
+      <div class="modal-body">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default" id="donorBtn">Save</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</form>
+</div>
+<!-- <div class="modal" id="contactModal">
+<form class="well" method="" action="/donors/">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>modal test</h3>
+  </div>
+  <div class="modal-body">
+       <h1>modal test</h1>
+  </div>
+  <div class="modal-footer">
+       <input class="btn btn-primary" type="submit" value="Save" />
+       <input name="cancel" class="btn" type="submit" value="Cancel"/>
+  </div>
+</form>
+</div> -->
+{% endblock %}

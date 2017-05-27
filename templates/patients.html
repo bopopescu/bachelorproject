@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+
+<div class="jumbotron">
+  <h1>PATIENTS</h1>
+  <form method="POST" class="post-form" action=" /patients/ ">
+ {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+</div>
+</div>
+
+<table>
+    <tr>
+        <th>name</th>
+        <th>last name</th>
+        <th>blood </th>
+    </tr>
+    {% for item in patients_results %}
+    <tr> 
+        <td>{{ item.first_name }}</td>
+        <td>{{ item.last_name }}</td>
+        <td>{{ item.blood_type }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+{% endblock %}

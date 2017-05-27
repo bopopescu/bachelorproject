@@ -1,0 +1,63 @@
+
+	{% load staticfiles %}
+	
+
+	<!DOCTYPE html>
+	<html>
+
+	<head>
+
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	     <meta http-equiv="pragma" content="no-cache" />
+
+	    <title>B2B</title>
+
+	    <!-- Core CSS - Include with every page -->
+	    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+	    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+	    
+		
+	</head>
+
+	<body>
+
+	<nav class="navbar navbar-default">
+	  <div class="container">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">B2B</a>
+	    </div>
+
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav navbar-right">
+	      	<li><a href="/">home</a></li>
+	      	<li><a href="">donors</a></li>
+	      	<li><a href="/patients">patients</a></li>
+	      	<li><a href="/logout">Log out</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+
+	            {% block content %}
+	            {% endblock %}
+
+	    <!-- Core Scripts - Include with every page -->
+	    <script src = "{% static 'js/jquery.min.js' %}"></script>
+<!-- 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ -->
+	    <script src = "{% static 'js/bootstrap.min.js' %}"></script>
+	    <script src = "{% static 'js/myJs.js' %}"></script>
+	    <script src = "{% static 'js/html-table-search.js' %}"></script>
+	    {% block javascript %}
+	    {% endblock %}
+
+	</body>
+
+	</html>

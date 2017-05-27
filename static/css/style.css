@@ -1,0 +1,37 @@
+.plusImg{
+	width:40px;
+	height: 40px;
+	float:right;
+}
+.modal-title{
+	text-align: center;
+	letter-spacing: 1px;
+}
+.searchInput{
+	letter-spacing: 2px;
+	width:130px;
+/*	font-style: italic;
+*/}
+.seeMore{
+	background-color: white;
+	border: 1px solid #a60c0c;
+	color:#a60c0c;
+	font-weight:400;
+	width:100px;
+	letter-spacing: 1px;
+
+}
+.seeMore:hover{
+	background-color: #a60c0c;
+	color:white;
+}
+.searchBar{
+	float: right;
+	margin-top: -45px;
+}
+.search-table{
+	margin-top:-30px;
+}
+.saveBtn{
+	letter-spacing: 1px;
+}
