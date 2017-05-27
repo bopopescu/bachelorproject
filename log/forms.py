@@ -15,7 +15,21 @@ class LoginForm(AuthenticationForm):
 class PostForm(forms.ModelForm):
   firstName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}), label='')
   lastName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}), label='')
-  bloodType = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Blood Type'}), label='') 
+  blood_choices = (
+            ('AB+','AB+'),
+            ('AB-','AB-'),
+            ('A+','A+'),
+            ('A-','A-'),
+            ('B+','B+'),
+            ('B-','B-'),
+            ('0+','0+'),
+            ('0-','0-'),
+            )
+  # bloodType = forms.CharField(widget=forms.TextInput(max_length=200), label='', choices = blood_choices)
+  bloodType = forms.ChoiceField(choices=blood_choices, widget=forms.Select(attrs={'class': 'form-control selectBlood'}),label='')
+ #bloodType = forms.CharField(choices=blood_choices)
+
+    #publisher = forms.MultipleChoiceField(widget=forms.SelectMultiple)
   class Meta:
     model = models.Donor
 
