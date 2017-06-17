@@ -42,7 +42,7 @@ def donors(request):
 
         
 
-        elif 'attend' in request.GET:
+        elif 'attend' in request.POST:
             donor_id = None
             # if request.method == "GET":
             #     donor_id = request.GET.get('id')
@@ -52,13 +52,20 @@ def donors(request):
                 if donor:
                     donor.lastAttendance.add(datetime.datetime.now())
                     donor.save()
+                
 
-    # selecting file and saving in the folder
-    if request.method == 'POST' and request.FILES['myfile']:
-        myfile = request.FILES['myfile']
-        fs = FileSystemStorage()
-        filename = fs.save(myfile.name, myfile)
-        uploaded_file_url = fs.url(filename)
+        # elif 'uploadImg' in request.FILES['myfile']:
+        #     myfile = request.FILES['myfile']
+        #     fs = FileSystemStorage()
+        #     filename = fs.save(myfile.name, myfile)
+        #     uploaded_file_url = fs.url(filename)
+
+            # selecting file and saving in the folder
+        elif 'uploadImg' and request.FILES['myfile']:
+            myfile = request.FILES['myfile']
+            fs = FileSystemStorage()
+            filename = fs.save(myfile.name, myfile)
+            uploaded_file_url = fs.url(filename)
     
     
 
@@ -71,7 +78,6 @@ def donors(request):
         'form': PostForm(), 
         'donors_count': donors_count,
         'query_results': query_results,
-        request: 'donors.html',
         })
 
 #patients

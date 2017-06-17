@@ -94,9 +94,5 @@ $(document).ready(function(){
         
     });
 
-$(document).ready(function(){
-    $("#uploadBtn").click(function(){
-        console.log('x');
-    });
-});
+
 

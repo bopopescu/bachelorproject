@@ -20,3 +20,4 @@ class Patient(models.Model):
 	blood_type = models.CharField(max_length=50)
 	created_date = models.DateTimeField(default=timezone.now)
 	
+
