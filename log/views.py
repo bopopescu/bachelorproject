@@ -13,6 +13,13 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from .filters import DonorFilter
 from log.tables import PersonTable
+import datetime
+from bson import json_util
+from django.core.serializers.json import DjangoJSONEncoder
+import json
+from django.core.files.storage import FileSystemStorage
+
+
 
 # Create your views here.
 # this login required decorator is to not allow to any  
@@ -23,45 +30,62 @@ from log.tables import PersonTable
 def home(request):
 	return render(request,"home.html")
 
+#donor
 @login_required(login_url="login/")
 def donors(request):
-    if request.method == 'POST': # If the form has been submitted...
-        form = PostForm(request.POST) # A form bound to the POST data
-        if form.is_valid():
-            form.save() 
+    global message
+    if request.method == 'POST':
+        if 'saveDonor' in request.POST:
+            form = PostForm(request.POST)
+            if form.is_valid():
+                form.save()
 
-    #display all donors
-    query_results = Donor.objects.all()
+        
+
+        elif 'attend' in request.GET:
+            donor_id = None
+            # if request.method == "GET":
+            #     donor_id = request.GET.get('id')
+
+            if donor_id:
+                donor = Donor.objects.get(id=int(donor_id))
+                if donor:
+                    donor.lastAttendance.add(datetime.datetime.now())
+                    donor.save()
+
+    # selecting file and saving in the folder
+    if request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+    
+    
+
+    #display all the lates added donors
+    query_results = Donor.objects.order_by('-createdDate')
     #dislay total ammount of rows
     donors_count = Donor.objects.count()
-
+   
     return render(request, 'donors.html', {
         'form': PostForm(), 
         'donors_count': donors_count,
         'query_results': query_results,
+        request: 'donors.html',
         })
 
-def get_data(request):
-    data = {
-    'sales': 100,
-    'customers': 30
-    }
-
-
-
-    return JsonResponse(data) # http response
-
+#patients
 @login_required(login_url="login/")
 def patients(request):
     if request.method == 'POST': # If the form has been submitted...
-        form = PatientForm(request.POST) # A form bound to the POST data
-        if form.is_valid():
-            form.save()
+        form2 = PatientForm(request.POST) # A form bound to the POST data
+        if form2.is_valid():
+            form2.save()
 
     patients_results = Patient.objects.all()
     patients_count = Patient.objects.count()
     return render(request, 'patients.html', {
-        'form': PatientForm(), 
+        'form2': PatientForm(), 
         'patients_results': patients_results,
         'patients_count': patients_count,
         })

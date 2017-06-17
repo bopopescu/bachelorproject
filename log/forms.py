@@ -28,6 +28,7 @@ class PostForm(forms.ModelForm):
             )
   # bloodType = forms.CharField(widget=forms.TextInput(max_length=200), label='', choices = blood_choices)
   bloodType = forms.ChoiceField(choices=blood_choices, widget=forms.Select(attrs={'class': 'form-control selectBlood'}),label='')
+
  #bloodType = forms.CharField(choices=blood_choices)
 
     #publisher = forms.MultipleChoiceField(widget=forms.SelectMultiple)
@@ -36,11 +37,6 @@ class PostForm(forms.ModelForm):
 
     fields = ['firstName', 'lastName', 'bloodType',]
 
-# select type of blood
-bloodChoices=[('select1','select 1'),
-         ('select2','select 2')]
-
-like = forms.ChoiceField(choices=bloodChoices, widget=forms.RadioSelect())
 
 
 class PatientForm(forms.ModelForm):

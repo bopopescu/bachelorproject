@@ -48,3 +48,21 @@ a:hover{
 .linkBtns.active {
 background: #ea0000;
 color: #fff;
+}
+h4{
+	text-align: center;
+}
+h5{
+	text-align: center;
+	color:#46b801;
+}
+.attendBtn{
+	border: 1px solid #46b801;
+	background-color: transparent;
+	color:#46b801;
+}
+.attendBtn:hover{
+	background-color: #46b801;
+	color:white;
+}
+

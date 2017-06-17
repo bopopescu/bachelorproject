@@ -1,39 +1,79 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load widget_tweaks %}
+<!-- {% load widget_tweaks %} -->
 {% block content %}
 <div class="container-fluid">
-	
 	<div class="col-md-4 col-xs-12">
 		<div class="jumbotron">
 			<form class="post-form" method="POST" action="/donors/">
 				{% csrf_token %}
         		{{ form.as_p }}
-        		<button type="submit" class="save btn btn-default form-control saveBtn" id="donorBtn">Save</button>
+        		<button type="submit" class="save btn btn-default form-control saveBtn" id="donorBtn" name="saveDonor">Save</button>
+
+  
+
 			</form>
+			<h5>OR</h5>
+			<!-- upload frm image -->
+			<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" class="filestyle" data-icon="false"name="myfile">
+    <button type="submit" class=" btn btn-default form-control " onClick="window.location.reload()">Upload</button>
+
+    <div>
+
+</div>
+	
+  </form>
+
+
+
 		</div>
+		<h4><strong>{{ currentDate }} </strong></h4>
+		<h5>Available donors:</h5>
+		<ul>
+			<li>..</li>
+			<li>..</li>
+			<li>..</li>
+		</ul>
+		<h1>  </h1>
 	</div>
+
 	<div class="col-md-8 col-xs-12">
 		<h3><strong>DONORS </strong>({{ donors_count }})</h3>
 		<table class="table search-table table-bordered search-table table-responsive" id="donorTable">
 			<thead>
 		      <tr>
-		      	<th>#</th>
+		      
 		        <th>Name</th>
 		        <th>Last name</th>
 		        <th>Blood</th>
-		        <th>Joined</th>
+		        <th>Last Joined</th>
 		        <th>Last attendance</th>
+		        <th>Attend</th>
 		      </tr>
 		    </thead>
 		    <tbody>
 			    {% for item in query_results %}
 			    <tr> 
-			    	<td>{{ item.id }}</td>
+			    	<td id="appointment_id" class="hidden">{{ item.id }}</td>
 			        <td>{{ item.firstName }}</td>
 			        <td>{{ item.lastName }}</td>
 			        <td>{{ item.bloodType }}</td>
 			        <td>{{ item.createdDate|date:"d M Y" }}</td>
+			        <td>{{ item.lastAttendance|date:"d M Y"}}</td>
+			        <td><!-- <form action="get"><button type="submit" class="btn attendBtn"  id="{{ item.id }}" name="attend">attend</button></form> -->
+			        	<form method="POST" action="/donors/">
+			        	{% csrf_token %}
+  <button 
+  	type="submit" 
+    class="btn attendBtn" 
+    value="{{ item.id }}" 
+    name="attend">attend
+  </button>
+ </form>
+			        	
+			        </td>
 			    </tr>
 			    {% endfor %} 
 			</tbody>

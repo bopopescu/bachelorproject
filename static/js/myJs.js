@@ -59,15 +59,44 @@ function checkButton() {
     } else {
         btnLess.hide();
     }
-}
+};
 
 // click btn in nav
-$('.linkBtns').click(function(){
-    if($(this).hasClass('active')){
-        $(this).removeClass('active')
-    } else {
-        $(this).addClass('active')
-    }
-});
+// $('.linkBtns').click(function(){
+//     if($(this).hasClass('active')){
+//         $(this).removeClass('active')
+//     } else {
+//         $(this).addClass('active')
+//     }
+// });
 
+//attend btn
+$(document).ready(function(){
+    $(".attendBtn").click(function() {
+        // console.log("x")
+        var id = $(this).attr('id');
+        console.log(id);
+
+        var d = new Date();
+        console.log(d);
+        
+        $.ajax({
+            // url: "{% url 'donors' %}",
+            data: { 'id' : id },
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+            },
+            success: function(response){
+            }
+        });
+     
+        });    
+        
+    });
+
+$(document).ready(function(){
+    $("#uploadBtn").click(function(){
+        console.log('x');
+    });
+});
 
