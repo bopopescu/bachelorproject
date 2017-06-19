@@ -13,17 +13,19 @@
 /*	font-style: italic;
 */}
 .seeMore{
-	background-color: white;
+	background-color: #a60c0c;
 	border: 1px solid #a60c0c;
-	color:#a60c0c;
+	color:white;
 	font-weight:400;
 	width:100px;
 	letter-spacing: 1px;
+	position: relative;
+	left:-70px;
 
 }
 .seeMore:hover{
-	background-color: #a60c0c;
-	color:white;
+	background-color: white;
+	color:#a60c0c;
 }
 .searchBar{
 	float: right;
@@ -49,6 +51,10 @@ a:hover{
 background: #ea0000;
 color: #fff;
 }
+.availableDonors{
+	text-align: center;
+	color:#46b801;
+}
 h4{
 	text-align: center;
 }
@@ -65,4 +71,7 @@ h5{
 	background-color: #46b801;
 	color:white;
 }
-
+thead {
+  text-align: center;
+  vertical-align: middle;
+}

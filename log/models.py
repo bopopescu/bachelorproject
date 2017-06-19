@@ -13,6 +13,7 @@ class Donor(models.Model):
 	bloodType = models.CharField(max_length=10)
 	createdDate = models.DateTimeField(auto_now_add=True)
 	lastAttendance = models.DateTimeField(auto_now_add=True)
+	availability = models.BooleanField(default=False)
 	
 class Patient(models.Model):
 	first_name = models.CharField(max_length=50)

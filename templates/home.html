@@ -1,13 +1,67 @@
 {% extends 'base.html' %}
-
+{% load static %}
+<!-- {% load widget_tweaks %} -->
 {% block content %}
-<div class="container" >
-<div class="row">
+<div class="container-fluid">
 
-<div class="jumbotron">
-  <h1>Hello</h1>
-  <p>You are on your Dashboard</p>
+	<div class="col-md-6 col-xs-12">
+		<h3><strong>DONORS </strong>({{ donors_count }})</h3>
+		<table class="table  table-bordered  table-responsive" id="donorTable" style="text-align: center;">
+			<thead >
+		      <tr>
+		      	<th>blood type</th>
+		      	<th>donors</th>
+		       
+		      </tr>
+		    </thead>
+		    <tbody>
+			    
+			    {% for item in query_results  %}
+			    <tr> 
+				<td>{{item.bloodType}}</td>
+ 
+			        
+			    </tr>
+			    {% endfor %}
+			    
+			</tbody>
+		</table>
+		<h1>{{end_date| date:"d/m/y"}}</h1>
+	</div>
+	<div class="row"> 
+	<div class="col-md-2 col-md-offset-8">
+		<button type="button" class="btn seeMore" id="seeMoreRecords">see more</button>
+		<button type="button" class="btn seeMore" id="seeLessRecords">see less</button>
+	</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			
+		</div>
+	</div>	
+		
+
+	
 </div>
-</div>
+
+<!-- add new model -->
+<div id="myModal" class="modal fade" role="dialog">
+<form class="post-form" method="POST" action="/donors/">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add new donor</h4>
+      </div>
+      <div class="modal-body">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default" id="donorBtn">Save</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</form>
 </div>
 {% endblock %}

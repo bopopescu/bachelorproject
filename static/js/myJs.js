@@ -61,38 +61,86 @@ function checkButton() {
     }
 };
 
-// click btn in nav
-// $('.linkBtns').click(function(){
-//     if($(this).hasClass('active')){
-//         $(this).removeClass('active')
-//     } else {
-//         $(this).addClass('active')
-//     }
-// });
+//attend btn
+// $(document).ready(function(){
+//     $(".attendBtn").click(function() {
+//         // var getId = 
+//         // console.log("x")
+
+//         var id = $(this).attr('id');
+//         alert(id)
+//         // console.log(id);
+
+//         // var d = new Date();
+//         // console.log(d);
+
+//         function formatDate(date) {
+//   var monthNames = [
+//     "January", "February", "March",
+//     "April", "May", "June", "July",
+//     "August", "September", "October",
+//     "November", "December"
+//   ];
+
+//   var day = date.getDate();
+//   var monthIndex = date.getMonth();
+//   var year = date.getFullYear();
+
+//   return day + ' ' + monthNames[monthIndex] + ' ' + year;
+// }
 
 //attend btn
-$(document).ready(function(){
-    $(".attendBtn").click(function() {
-        // console.log("x")
-        var id = $(this).attr('id');
-        console.log(id);
+// $(document).on("click", ".attendBtn", function(){
+//         // selectDrone = $(this).attr('id');
+//         // alert(selectDrone);
+//         id = $(this).attr('donor_id')
+//         alert(id);
 
-        var d = new Date();
-        console.log(d);
-        
-        $.ajax({
-            // url: "{% url 'donors' %}",
-            data: { 'id' : id },
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-            },
-            success: function(response){
-            }
-        });
+//       });
+$(".attendBtn").click(function(){
+    var $this = $(this);
+    var id = $this.attr('id').split('-')[1];
+
+    console.log("id " + id);
      
-        });    
-        
-    });
+
+function formatDate(date) {
+  var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+
+  return day + ' ' + monthNames[monthIndex] + ' ' + year;
+}
+
+updatedDate = (formatDate(new Date()));  // show current date-time in console
+console.log(updatedDate);
+document.getElementById("lastAttendance").innerHTML = updatedDate;
 
 
+
+// var a = document.getElementsByClassName('otherButton');
+
+// for (var i = 0; i<a.length;i++) {
+//     a[i].addEventListener('click',function(){
+
+//      var b = this.parentNode.parentNode.cells[0].textContent;
+//     alert(b);
+
+//     // var dateValue = $(".dateValue").text();
+//     // console.log(dateValue) 
+
+
+//     });
+
+
+
+
+});
 

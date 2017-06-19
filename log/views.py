@@ -1,5 +1,6 @@
 #!python
 #log/views.py
+from django.utils import timezone  
 from django.http import JsonResponse
 from django.shortcuts import render_to_response
 from django.shortcuts import render
@@ -13,14 +14,15 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from .filters import DonorFilter
 from log.tables import PersonTable
-import datetime
 from bson import json_util
 from django.core.serializers.json import DjangoJSONEncoder
 import json
-from django.core.files.storage import FileSystemStorage
-
-
-
+from datetime import datetime
+from django.utils import timezone
+from datetime import date, timedelta
+from django.utils.timesince import timesince
+from datetime import datetime
+from datetime import datetime, timedelta
 # Create your views here.
 # this login required decorator is to not allow to any  
 # view without authenticating
@@ -28,56 +30,52 @@ from django.core.files.storage import FileSystemStorage
 
 @login_required(login_url="login/")
 def home(request):
-	return render(request,"home.html")
+    #display all the lates added donors
+    query_results = Donor.objects.order_by('-createdDate')
+    #dislay total ammount of rows
+    donors_count = Donor.objects.count()
+
+    # for item in query_results:
+    #     item.blood = item.bloodType.count()
+
+    return render(request,"home.html", {
+        'donors_count': donors_count,
+        'query_results': query_results,
+        })
 
 #donor
 @login_required(login_url="login/")
 def donors(request):
     global message
     if request.method == 'POST':
-        if 'saveDonor' in request.POST:
             form = PostForm(request.POST)
             if form.is_valid():
                 form.save()
 
-        
-
-        elif 'attend' in request.POST:
-            donor_id = None
-            # if request.method == "GET":
-            #     donor_id = request.GET.get('id')
-
-            if donor_id:
-                donor = Donor.objects.get(id=int(donor_id))
-                if donor:
-                    donor.lastAttendance.add(datetime.datetime.now())
-                    donor.save()
-                
-
-        # elif 'uploadImg' in request.FILES['myfile']:
-        #     myfile = request.FILES['myfile']
-        #     fs = FileSystemStorage()
-        #     filename = fs.save(myfile.name, myfile)
-        #     uploaded_file_url = fs.url(filename)
-
-            # selecting file and saving in the folder
-        elif 'uploadImg' and request.FILES['myfile']:
-            myfile = request.FILES['myfile']
-            fs = FileSystemStorage()
-            filename = fs.save(myfile.name, myfile)
-            uploaded_file_url = fs.url(filename)
     
-    
-
     #display all the lates added donors
     query_results = Donor.objects.order_by('-createdDate')
     #dislay total ammount of rows
     donors_count = Donor.objects.count()
+
+    delta = datetime.today() + timedelta(days=120)
+    
+    # loop attendance in database and add 4 months
+    for item in query_results:
+        item.dates = item.lastAttendance + timedelta(days=120)
+        if item.dates >= datetime.now(tz=timezone.utc):
+            item.message = "not available "
+
+        else:
+            item.message = "available"
+            item.messageA = item.firstName 
    
     return render(request, 'donors.html', {
         'form': PostForm(), 
         'donors_count': donors_count,
         'query_results': query_results,
+        'item': item,
+        'item.message': item.message
         })
 
 #patients
